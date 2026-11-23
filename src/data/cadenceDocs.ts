@@ -1117,8 +1117,7 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
     { "source": "/((?!api|assets|icons|Cadence_Complete_Documentation\\.pdf|favicon\\.svg|manifest\\.webmanifest|robots\\.txt|sitemap\\.xml).*)", "destination": "/index.html" }
   ],
   "crons": [
-    { "path": "/api/cron/lapse-check", "schedule": "*/5 * * * *" },
-    { "path": "/api/cron/weekly-report", "schedule": "0 8 * * 1" }
+    { "path": "/api/cron/lapse-check", "schedule": "0 0 * * *" }
   ]
 }`,
           },

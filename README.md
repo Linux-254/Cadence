@@ -14,7 +14,7 @@ Developer accountability, role-adaptive workbench, and structured learning works
 - Web heartbeat cadence: `30s` (`HEARTBEAT_WEB_S = 30` in `server/config.ts`)
 - Extension heartbeat cadence: `60s` (`HEARTBEAT_EXT_S = 60` in `server/config.ts`)
 - Default lapse grace period: `5m` (`LAPSE_GRACE_MIN = 5`, user-configurable `3–30m`)
-- Vercel Hobby cron interval: `vercel.json` triggers `/api/cron/lapse-check` every 5 minutes (`*/5 * * * *`), which satisfies Vercel Hobby plan limits. Stale active sessions older than the user's lapse grace threshold are also finalized lazily on session and dashboard reads so state stays consistent between cron runs.
+- Vercel Hobby daily cron: `vercel.json` triggers `/api/cron/lapse-check` once daily (`0 0 * * *` at midnight UTC), which complies strictly with Vercel Hobby plan limits (maximum 1 execution per day). Stale active sessions older than the user's lapse grace threshold are finalized lazily in real time on every session and dashboard read, so state and durations remain accurate without waiting for cron executions.
 
 ## Environment Variables
 
