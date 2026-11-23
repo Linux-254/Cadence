@@ -47,9 +47,12 @@ import {
 import {
   ensureStorageReady,
   getStorageEngine,
+  isMongoConfigured,
   storage,
   stripPasswordHash,
 } from './storage.ts';
+import { getSqliteDb } from './db.ts';
+import { seedDemoAccountsMongo, seedDemoAccountsSqlite } from './seed/demoSeeder.ts';
 import type {
   ActivitySlice,
   ApplicationStatus,
@@ -928,12 +931,31 @@ export function createApp() {
     '/api/auth/demo-login',
     rateLimit({ keyPrefix: 'auth_demo_login', max: 60, windowMs: 60_000 }),
     asyncHandler(async (req, res) => {
-      const intent = String(req.body?.intent || 'learner').trim().toLowerCase();
-      const demoEmail = `${intent}@cadence.dev`;
-      let userRecord = await storage.findUserByEmail(demoEmail);
-      if (!userRecord) {
-        userRecord = await storage.findUserByEmail('learner@cadence.dev');
+      const intent = String(req.body?.intent || req.query?.intent || 'learner').trim().toLowerCase();
+      const normalized = intent.replace(/[_-]/g, '');
+      const candidates = [
+        `${normalized}@cadence.dev`,
+        `${intent}@cadence.dev`,
+        'learner@cadence.dev',
+      ];
+      let userRecord = null;
+      for (const email of candidates) {
+        userRecord = await storage.findUserByEmail(email);
+        if (userRecord) break;
       }
+
+      if (!userRecord) {
+        if (isMongoConfigured()) {
+          await seedDemoAccountsMongo();
+        } else {
+          seedDemoAccountsSqlite(getSqliteDb());
+        }
+        for (const email of candidates) {
+          userRecord = await storage.findUserByEmail(email);
+          if (userRecord) break;
+        }
+      }
+
       if (!userRecord) {
         return res.status(404).json({ error: 'Demo account not found.' });
       }

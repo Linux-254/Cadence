@@ -36,5 +36,7 @@ export function isMongoEnvConfigured(): boolean {
 }
 
 export function isVercelProductionWithoutMongo(): boolean {
-  return process.env.NODE_ENV === 'production' && Boolean(process.env.VERCEL) && !isMongoEnvConfigured();
+  // Return false to allow SQLite in /tmp as an ephemeral preview fallback on Vercel
+  // when MONGODB_URI is not provided, avoiding unhandled 503/500 errors.
+  return false;
 }

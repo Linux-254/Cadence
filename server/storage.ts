@@ -74,7 +74,10 @@ import type {
 
 export type StorageEngine = 'mongodb' | 'sqlite_preview';
 
+let mongoAvailable: boolean | null = null;
+
 export function isMongoConfigured(): boolean {
+  if (mongoAvailable !== null) return mongoAvailable;
   return isMongoEnvConfigured();
 }
 
@@ -85,16 +88,22 @@ export function getStorageEngine(): StorageEngine {
 let mongoInitialized = false;
 
 export async function ensureStorageReady(): Promise<void> {
-  if (isVercelProductionWithoutMongo()) {
-    throw new DatabaseNotConfiguredError('Database not configured.');
-  }
-
-  if (!isMongoConfigured()) {
+  if (!isMongoEnvConfigured()) {
+    mongoAvailable = false;
     getSqliteDb();
     return;
   }
 
-  await connectMongo();
+  try {
+    await connectMongo();
+    mongoAvailable = true;
+  } catch (err) {
+    console.warn('MongoDB connection failed, falling back to SQLite preview in /tmp:', err);
+    mongoAvailable = false;
+    getSqliteDb();
+    return;
+  }
+
   if (mongoInitialized) return;
 
   for (const tool of SEED_TOOLS_V13) {

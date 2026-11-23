@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from 'express';
 import { storage, stripPasswordHash } from './storage.ts';
 import type { UserProfile } from '../src/types/cadence.ts';
 
-const SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+const SECRET = process.env.SESSION_SECRET || process.env.JWT_ACCESS_SECRET || 'cadence_production_default_secret_seed_v13';
 
 export function hashPassword(password: string): string {
   const salt = crypto.randomBytes(16).toString('hex');

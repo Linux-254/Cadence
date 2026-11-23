@@ -13,10 +13,16 @@ export async function connectMongo(): Promise<typeof mongoose> {
     return mongoose;
   }
   if (!globalForMongo.__cadenceMongoPromise) {
-    globalForMongo.__cadenceMongoPromise = mongoose.connect(uri, {
-      bufferCommands: false,
-      maxPoolSize: 10,
-    });
+    globalForMongo.__cadenceMongoPromise = mongoose
+      .connect(uri, {
+        bufferCommands: false,
+        maxPoolSize: 10,
+        serverSelectionTimeoutMS: 5000,
+      })
+      .catch((err) => {
+        globalForMongo.__cadenceMongoPromise = undefined;
+        throw err;
+      });
   }
   return globalForMongo.__cadenceMongoPromise;
 }

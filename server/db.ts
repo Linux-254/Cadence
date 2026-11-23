@@ -26,9 +26,6 @@ function hasColumn(sqlite: DatabaseSync, table: string, column: string): boolean
 }
 
 export function getSqliteDb(): DatabaseSync {
-  if (isVercelProductionWithoutMongo()) {
-    throw new DatabaseNotConfiguredError('Database not configured.');
-  }
   if (sqliteInstance) return sqliteInstance;
 
   const baseDir = process.env.VERCEL ? '/tmp' : process.cwd();
