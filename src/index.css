@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  /* Strict 2-Neutral + 1-Bold System: Obsidian Carbon, Warm Sandstone, Vermilion Ember */
+  --cadence-carbon: #0A0908;
+  --cadence-surface: #13110F;
+  --cadence-elevated: #1C1815;
+  --cadence-sandstone: #EDE3D2;
+  --cadence-ash: #A69B8D;
+  --cadence-ember: #E12D1C;
+  --cadence-ember-soft: #F25C2A;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #0A0908;
+    color: #EDE3D2;
+    scroll-behavior: smooth;
+    letter-spacing: 0.005em;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+    color: #EDE3D2;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  input, select, textarea {
+    color-scheme: dark;
+  }
+}
+
+/* Radiant Gradient-Blended Canvas (zero blue, zero harsh white, atmospheric haze) */
+.studio-radial-bg {
+  background-color: #0A0908;
+  background-image:
+    radial-gradient(62% 48% at 14% 8%, rgba(225, 45, 28, 0.16) 0%, rgba(10, 9, 8, 0) 68%),
+    radial-gradient(52% 42% at 88% 22%, rgba(237, 227, 210, 0.065) 0%, rgba(10, 9, 8, 0) 70%),
+    radial-gradient(48% 38% at 52% 94%, rgba(225, 45, 28, 0.08) 0%, rgba(10, 9, 8, 0) 72%);
+}
+
+/* Open Editorial Canvas Surfaces (borderless; separated strictly by tone fade & hairlines) */
+.editorial-band {
+  background: linear-gradient(180deg, rgba(22, 19, 16, 0.42) 0%, rgba(10, 9, 8, 0) 100%);
+}
+
+.editorial-band-ember {
+  background:
+    radial-gradient(90% 80% at 85% 15%, rgba(225, 45, 28, 0.11) 0%, rgba(10, 9, 8, 0) 62%),
+    linear-gradient(180deg, rgba(24, 20, 17, 0.48) 0%, rgba(10, 9, 8, 0) 100%);
+}
+
+.hairline-top {
+  box-shadow: inset 0 1px 0 rgba(237, 227, 210, 0.085);
+}
+
+.hairline-bottom {
+  box-shadow: inset 0 -1px 0 rgba(237, 227, 210, 0.085);
+}
+
+.hairline-divide {
+  border-color: rgba(237, 227, 210, 0.085);
+}
+
+/* Ambient Ember Orb Glow behind editorial CTAs */
+.ember-orb-glow {
+  background: radial-gradient(
+    circle at center,
+    rgba(225, 45, 28, 0.36) 0%,
+    rgba(242, 92, 42, 0.14) 38%,
+    rgba(10, 9, 8, 0) 72%
+  );
+  filter: blur(18px);
+}
+
+/* Signature Left-Datum Ember Rule (from editorial engineering plates) */
+.cadence-seam {
+  position: relative;
+  padding-left: 1.15rem;
+}
+
+.cadence-seam::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  bottom: 0.15rem;
+  width: 2px;
+  background: linear-gradient(180deg, #E12D1C 0%, rgba(225, 45, 28, 0.12) 100%);
+}
+
+/* Architectural Horizon Grid (warm sandstone hairline) */
+.studio-grid-hairline {
+  background-image:
+    linear-gradient(to right, rgba(237, 227, 210, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(237, 227, 210, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Seamless Double-Exposure Image Masking (no hard photo edges) */
+.mask-fade-bottom {
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 42%, rgba(0, 0, 0, 0) 100%);
+}
+
+.mask-fade-radial {
+  -webkit-mask-image: radial-gradient(ellipse 76% 74% at 50% 48%, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0) 98%);
+  mask-image: radial-gradient(ellipse 76% 74% at 50% 48%, rgba(0, 0, 0, 1) 38%, rgba(0, 0, 0, 0) 98%);
+}
+
+.mask-fade-right {
+  -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 35%, rgba(0, 0, 0, 1) 100%);
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 35%, rgba(0, 0, 0, 1) 100%);
+}
+
+.mask-fade-edges {
+  -webkit-mask-image:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 1) 76%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 1) 86%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 16%, rgba(0, 0, 0, 1) 76%, rgba(0, 0, 0, 0) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 1) 86%, rgba(0, 0, 0, 0) 100%);
+  mask-composite: intersect;
+}
+
+/* Unique Bespoke Borderless Underline Form Control (replaces boxed inputs) */
+.cadence-field {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(237, 227, 210, 0.015) 0%, rgba(237, 227, 210, 0.045) 100%);
+  border: none;
+  border-bottom: 1.5px solid rgba(237, 227, 210, 0.16);
+  border-radius: 0.375rem 0.375rem 0 0;
+  color: #EDE3D2;
+  padding: 0.7rem 0.85rem;
+  transition:
+    border-color 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cadence-field::placeholder {
+  color: #6E655B;
+}
+
+.cadence-field:focus {
+  outline: none;
+  border-bottom-color: #E12D1C;
+  background: linear-gradient(180deg, rgba(225, 45, 28, 0.03) 0%, rgba(225, 45, 28, 0.09) 100%);
+  box-shadow: 0 6px 18px -10px rgba(225, 45, 28, 0.55);
+}
+
+/* Tactile LED Mechanical Keycap Selector */
+.cadence-keycap {
+  background: linear-gradient(180deg, #1E1A17 0%, #110F0E 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(237, 227, 210, 0.08),
+    0 4px 0 #050404,
+    0 8px 18px -8px rgba(0, 0, 0, 0.85);
+  transition: transform 150ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1), color 150ms ease;
+}
+
+.cadence-keycap:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(237, 227, 210, 0.14),
+    0 5px 0 #050404,
+    0 12px 24px -8px rgba(225, 45, 28, 0.25);
+}
+
+.cadence-keycap[data-active="true"] {
+  background: linear-gradient(180deg, rgba(225, 45, 28, 0.24) 0%, rgba(24, 15, 13, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(225, 45, 28, 0.45),
+    0 2px 0 #7C150C,
+    0 10px 26px -6px rgba(225, 45, 28, 0.45);
+}
+
+/* Kinetic editorial reveal animations (compositor-only: transform & opacity) */
+@keyframes cadenceFadeSlideUp {
+  from {
+    opacity: 0.9;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kinetic-enter {
+  animation: cadenceFadeSlideUp 480ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Smooth hairline link underline micro-interaction (Vermilion) */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 1.5px;
+  background: linear-gradient(90deg, #E12D1C 0%, rgba(237, 227, 210, 0.6) 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .cadence-keycap:hover {
+    transform: none;
+  }
+  .kinetic-enter {
+    animation: none;
+  }
+  .nav-link-underline::after {
+    transition: none;
+  }
+}
+
+@media print {
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #FFFFFF !important;
+    color: #0A0908 !important;
+  }
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}

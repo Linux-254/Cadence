@@ -1,0 +1,6 @@
+{
+  "name": "Cadence — Engineering & Product Documentation",
+  "description": "Complete all-in-one PRD, TRD, routing map, registration flows, MongoDB schema, API reference, IDE & Chrome extension scaffolds, and downloadable PDF specification for Cadence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
